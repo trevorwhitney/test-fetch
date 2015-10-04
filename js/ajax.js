@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import Config from './config'
 
 function ajaxAction(response) {
   return {
@@ -9,7 +9,7 @@ function ajaxAction(response) {
 
 export function ajaxNotInjected() {
   return dispatch => {
-    return fetch('https://api.github.com/users/trevorwhitney/repos')
+    return Config.fetch('https://api.github.com/users/trevorwhitney/repos')
       .then(resp => resp.json())
       .then(parsedResponse => dispatch(ajaxAction(parsedResponse)));
   }
