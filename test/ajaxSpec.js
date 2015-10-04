@@ -22,13 +22,15 @@ describe('ajax', function () {
     });
 
     //this is how backbone does it
-    it('mocks an application global, instead of a global global', function () {
-      spyOn(Config, 'fetch').and.returnValue(Promise.resolve(new Response('{"foo": "bar"}', {
+    it('mocks an application global, instead of a global global', function (done) {
+      let fetch = jasmine.createSpy('fetch').and.returnValue(Promise.resolve(new Response('{"foo": "bar"}', {
         headers: 'Content-Type: application/json',
         status: 200
       })));
 
-      var dispatch = jasmine.createSpy('dispatch)');
+      let dispatch = jasmine.createSpy('dispatch)');
+
+      Config.fetch = fetch;
       ajaxNotInjected()(dispatch).then(() => {
         let ajaxAction = {
           type: 'AJAX',
@@ -37,6 +39,7 @@ describe('ajax', function () {
 
         expect(fetch).toHaveBeenCalledWith('https://api.github.com/users/trevorwhitney/repos');
         expect(dispatch).toHaveBeenCalledWith(ajaxAction);
+        done();
       });
     });
   });

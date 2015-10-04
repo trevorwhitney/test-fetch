@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp serve",
-    "test": "karma start test/config/karma.conf.js",
-    "test:watch": "karma start test/config/karma.conf.js --single-run=false --auto-watch=true"
+    "test": "node test/bin/karma.js"
   },
   "author": "",
   "license": "ISC",
